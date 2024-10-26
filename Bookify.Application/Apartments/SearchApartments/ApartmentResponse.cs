@@ -20,7 +20,7 @@ namespace Bookify.Application.Apartments.SearchApartments
 
         public required string Currency { get;init; }
 
-        public AddressResponse Address { get; set; }
+        public AddressResponse? Address { get; set; }
 
     }
 }
