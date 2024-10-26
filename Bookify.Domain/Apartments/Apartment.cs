@@ -25,8 +25,6 @@ namespace Bookify.Domain.Apartments
             LastBookedOnUtc = lastBookedOnUtc;
             Amenities = amenities;
         }
-
-        public Guid Id { get; private set;}
         public Name Name { get; private set; }
 
         public Description Description { get; private set; }
