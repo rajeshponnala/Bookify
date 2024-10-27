@@ -24,6 +24,12 @@ public sealed class Review : Entity
         CreatedOnUtc = createdOnUtc;
     }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private Review()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    {
+    }
+
     public Guid ApartmentId { get; private set; }
 
     public Guid BookingId { get; private set; }

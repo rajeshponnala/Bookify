@@ -35,6 +35,12 @@ namespace Bookify.Domain.Bookings
             CreatedOnUtc = createdOnUtc;
         }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private Booking()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        {
+        }
+
         public Guid ApartmentId { get; private set; }
         public Guid UserId { get; private set; }
         public DateRange Duration { get; private set; }
