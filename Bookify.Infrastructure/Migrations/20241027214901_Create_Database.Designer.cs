@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bookify.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241027211954_Create_Database")]
+    [Migration("20241027214901_Create_Database")]
     partial class Create_Database
     {
         /// <inheritdoc />
@@ -227,10 +227,10 @@ namespace Bookify.Infrastructure.Migrations
                                 .HasColumnType("text")
                                 .HasColumnName("address_street");
 
-                            b1.Property<string>("Zipcode")
+                            b1.Property<string>("ZipCode")
                                 .IsRequired()
                                 .HasColumnType("text")
-                                .HasColumnName("address_zipcode");
+                                .HasColumnName("address_zip_code");
 
                             b1.HasKey("ApartmentId");
 

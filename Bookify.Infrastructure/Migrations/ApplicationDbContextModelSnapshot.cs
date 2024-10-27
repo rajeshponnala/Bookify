@@ -224,10 +224,10 @@ namespace Bookify.Infrastructure.Migrations
                                 .HasColumnType("text")
                                 .HasColumnName("address_street");
 
-                            b1.Property<string>("Zipcode")
+                            b1.Property<string>("ZipCode")
                                 .IsRequired()
                                 .HasColumnType("text")
-                                .HasColumnName("address_zipcode");
+                                .HasColumnName("address_zip_code");
 
                             b1.HasKey("ApartmentId");
 

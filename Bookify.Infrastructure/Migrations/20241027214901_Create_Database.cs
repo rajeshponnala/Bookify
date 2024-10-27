@@ -20,7 +20,7 @@ namespace Bookify.Infrastructure.Migrations
                     description = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
                     address_country = table.Column<string>(type: "text", nullable: false),
                     address_state = table.Column<string>(type: "text", nullable: false),
-                    address_zipcode = table.Column<string>(type: "text", nullable: false),
+                    address_zip_code = table.Column<string>(type: "text", nullable: false),
                     address_city = table.Column<string>(type: "text", nullable: false),
                     address_street = table.Column<string>(type: "text", nullable: false),
                     price_amount = table.Column<decimal>(type: "numeric", nullable: false),
