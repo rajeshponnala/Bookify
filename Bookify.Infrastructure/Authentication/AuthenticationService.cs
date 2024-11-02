@@ -12,7 +12,7 @@ namespace Bookify.Infrastructure.Authentication
 {
     internal sealed class AuthenticationService : IAuthenticationService
     {
-        private const string PasswordCredentialType = "Password";
+        private const string PasswordCredentialType = "password";
         private readonly HttpClient _httpClient;
 
         public AuthenticationService(HttpClient httpClient)
