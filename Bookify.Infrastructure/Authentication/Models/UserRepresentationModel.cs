@@ -12,9 +12,9 @@ namespace Bookify.Infrastructure.Authentication.Models
         public Dictionary<string,string> Access { get; set; }
         public Dictionary<string, List<string>> Attributes { get; set; }
         public Dictionary<string, string> ClientRoles { get; set; }
-        public long CreatedTimeStamp { get; set; }
+        public long CreatedTimestamp { get; set; }
         public CredentialRepresentationModel[] Credentials { get; set; }
-        public string[] DisableCredentialTypes { get; set; }
+        public string[] DisableableCredentialTypes { get; set; }
 
         public string Email { get; set; }
         public bool? EmailVerified { get; set; }
@@ -43,7 +43,7 @@ namespace Bookify.Infrastructure.Authentication.Models
                 Username = user.Email.value,
                 Enabled = true,
                 EmailVerified = true,
-                CreatedTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+                CreatedTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                 Attributes = new Dictionary<string, List<string>>(),
                 RequiredActions = Array.Empty<string>()
             };
