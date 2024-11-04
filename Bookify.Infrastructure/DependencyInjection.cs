@@ -30,7 +30,7 @@ namespace Bookify.Infrastructure
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IEmailService, EmailService>();
 
-            AddPersistance(services, configuration);
+            AddPersistence(services, configuration);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer();
@@ -52,7 +52,7 @@ namespace Bookify.Infrastructure
             return services;
         }
 
-        private static void AddPersistance(IServiceCollection services, IConfiguration configuration)
+        private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("database")
                 ?? throw new ArgumentNullException(nameof(configuration));
