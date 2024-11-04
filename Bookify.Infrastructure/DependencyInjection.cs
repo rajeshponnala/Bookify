@@ -31,9 +31,15 @@ namespace Bookify.Infrastructure
             services.AddTransient<IEmailService, EmailService>();
 
             AddPersistence(services, configuration);
+            AddAuthentication(services, configuration);
 
+            return services;
+        }
+
+        private static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
+        {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer();
+                                .AddJwtBearer();
 
             services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
 
@@ -43,13 +49,16 @@ namespace Bookify.Infrastructure
 
             services.AddTransient<AdminAuthorizationDelegatingHandler>();
 
-            services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) => {
-                var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
-                httpClient.BaseAddress = new Uri(keycloakOptions.AdminUrl);
-            })
+            services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) => SetHttpClientBaseAddress(serviceProvider, httpClient))
             .AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
+            services.AddHttpClient<IJwtService, JwtService>((serviceProvider,
+                                                             httpClient) => SetHttpClientBaseAddress(serviceProvider, httpClient));
+        }
 
-            return services;
+        private static void SetHttpClientBaseAddress(IServiceProvider serviceProvider, HttpClient httpClient)
+        {
+            var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
+            httpClient.BaseAddress = new Uri(keycloakOptions.TokenUrl);
         }
 
         private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
