@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bookify.Application.Users.RegisterUser
 {
-    internal sealed class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+    public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
     {
         public RegisterUserCommandValidator()
         {
