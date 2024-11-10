@@ -1,4 +1,5 @@
-﻿using Bookify.Application.Users.LoginUser;
+﻿using Bookify.Application.Users.GetLoggedInUser;
+using Bookify.Application.Users.LoginUser;
 using Bookify.Application.Users.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -11,11 +12,11 @@ namespace Bookify.Api.Controllers.Users
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly ISender _isender;
+        private readonly ISender _sender;
 
-        public UsersController(ISender isender)
+        public UsersController(ISender sender)
         {
-            _isender = isender;
+            _sender = sender;
         }
 
         [AllowAnonymous]
@@ -29,7 +30,7 @@ namespace Bookify.Api.Controllers.Users
                 request.LastName,
                 request.Password);
 
-            var result = await _isender.Send(command, cancellationToken);
+            var result = await _sender.Send(command, cancellationToken);
             if (result.IsFailure)
             {
                 return BadRequest(result.Error);
@@ -47,12 +48,21 @@ namespace Bookify.Api.Controllers.Users
         {
             var command = new LogInUserCommand(request.Email, request.Password);
 
-            var result = await _isender.Send(command, cancellationToken);
+            var result = await _sender.Send(command, cancellationToken);
 
             if (result.IsFailure)
             {
                 return Unauthorized(result.Error);
             }
+            return Ok(result.Value);
+        }
+
+        [HttpGet("me")]
+        [Authorize(Roles = Roles.Registered)]
+        public async Task<IActionResult> GetLoggedInUser(CancellationToken cancellationToken)
+        {
+            var query = new GetLoggedInUserQuery();
+            var result = await _sender.Send(query, cancellationToken);
             return Ok(result.Value);
         }
 
