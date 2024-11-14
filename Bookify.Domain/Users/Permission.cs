@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Bookify.Domain.Users
 {
-    public sealed class Role
+    public sealed class Permission
     {
-        public static readonly Role Registered = new(1, "Registered");
-        public Role(int id, string name)
+        public static readonly Permission UsersRead = new(1, "users:read");
+        public Permission(int id, string name)
         {
             Id = id;
             Name = name;
@@ -18,8 +18,6 @@ namespace Bookify.Domain.Users
         public int Id { get; init; }
         public string Name { get; init; } = String.Empty;
 
-        public ICollection<User> Users { get; init; } = new List<User>();
-
-        public ICollection<Permission> Permissions { get; init; } = new List<Permission>();
+        
     }
 }
