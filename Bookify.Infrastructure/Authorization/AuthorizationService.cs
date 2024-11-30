@@ -23,6 +23,15 @@ namespace Bookify.Infrastructure.Authorization
                 .FirstAsync();
             return roles;
         }
+
+        public async Task<HashSet<string>> GetPermissionsForUserAsync(string identityId) {
+            var permissions = await _dbContext.Set<User>()
+                .Where(user => user.IdentityId == identityId)
+                .SelectMany(user => user.Roles.Select(role => role.Permissions))
+                .FirstAsync();
+            var permissionsSet = permissions.Select(p => p.Name).ToHashSet();
+            return permissionsSet;
+        }
     }
 
     
