@@ -25,14 +25,14 @@ namespace Bookify.Domain.Bookings
                     _ => 0
                 };
             }
-            var amenitiesUpCharge = Money.Zero();
+            var amenitiesUpCharge = Money.Zero(currency);
             if(percentageUpCharge > 0)
             {
                 amenitiesUpCharge = new Money(
                     priceForperiod.Amount * percentageUpCharge,
                     currency);
             }
-            var totalPrice = Money.Zero();
+            var totalPrice = Money.Zero(currency);
             totalPrice += priceForperiod;
             if(!apartment.CleaningFee.IsZero())
             {
