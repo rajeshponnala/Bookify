@@ -40,6 +40,7 @@ namespace Bookify.Infrastructure
             AddAuthentication(services, configuration);
             AddAuthorization(services);
             AddCaching(services, configuration);
+            AddHealthChecks(services, configuration);
 
             return services;
         }
@@ -104,6 +105,14 @@ namespace Bookify.Infrastructure
                 ?? throw new ArgumentNullException(nameof(configuration));
             services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
             services.AddSingleton<ICacheService, CacheService>();
+        }
+
+        private static void AddHealthChecks(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddHealthChecks()
+                .AddNpgSql(configuration.GetConnectionString("Database")!)
+                .AddRedis(configuration.GetConnectionString("Cache")!)
+                .AddUrlGroup(new Uri(configuration["keyCloak:BaseUrl"]!), HttpMethod.Get, "keycloak");
         }
     }
 }

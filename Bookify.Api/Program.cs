@@ -1,7 +1,12 @@
 
 using Bookify.Api.Extensions;
 using Bookify.Application;
+using Bookify.Application.Abstractions.Data;
 using Bookify.Infrastructure;
+using Dapper;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,5 +45,9 @@ app.UseAuthorization();
 app.UseCustomExceptionHandler();
 
 app.MapControllers();
+
+app.MapHealthChecks("health", new HealthCheckOptions {
+   ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();
