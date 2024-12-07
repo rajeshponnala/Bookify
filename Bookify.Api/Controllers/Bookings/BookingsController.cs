@@ -2,11 +2,15 @@
 using Bookify.Application.Bookings.GetBooking;
 using Bookify.Application.Bookings.ReserveBooking;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Bookify.Api.Controllers.Bookings
 {
+    [Authorize]
     [ApiVersion(ApiVersions.V1)]
     [Route("api/v{version:apiVersion}/bookings")]
     [ApiController]
@@ -30,9 +34,13 @@ namespace Bookify.Api.Controllers.Bookings
         [HttpPost]
         public async Task<IActionResult> ReserveBooking(ReserveBookingRequest request, CancellationToken cancellationToken)
         {
+            Guid.TryParse(
+                Request.HttpContext.User.FindFirst(JwtRegisteredClaimNames.Sub).Value.ToString(),
+                out Guid loggedInUserId);
+
             var command = new ReserveBookingCommand(
                   request.ApartmentId,
-                  request.UserId,
+                  loggedInUserId,
                   request.StartDate,
                   request.EndDate
                 );
