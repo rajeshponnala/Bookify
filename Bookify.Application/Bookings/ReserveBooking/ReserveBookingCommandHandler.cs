@@ -29,7 +29,7 @@ namespace Bookify.Application.Bookings.ReserveBooking
             IUnitOfWork unitOfWork,
             PricingService pricingService,
             IDateTimeProvider dateTimeProvider)
-        {
+        { 
             _userRepository = userRepository;
             _apartmentRepository = apartmentRepository;
             _bookingRepository = bookingRepository;
