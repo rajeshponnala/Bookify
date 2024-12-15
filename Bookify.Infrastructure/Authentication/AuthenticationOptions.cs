@@ -10,7 +10,7 @@ namespace Bookify.Infrastructure.Authentication
     {
         public string Audience { get; init; } = string.Empty;
 
-        public string MetadataUrl { get; init; } = string.Empty;
+        public string MetadataUrl { get; set; } = string.Empty;
 
         public bool RequireHttpsMetadata { get; init; }
 
